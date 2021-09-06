@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+import { renderToStaticMarkup } from 'react-dom/server';
 import App from '../src/App';
 
 const PORT = 8000;
@@ -16,11 +16,12 @@ app.use('^/$', (req, res, next) => {
       console.log(err);
       return res.status(500).send('Something went wrong!');
     }
-    
+
     return res.send(
       data.replace(
         '<div id="root"></div>',
-        `<div id="root">${renderToString(<App />)}</div>`
+        `<script>window.customPupeteerParams=${JSON.stringify(req.query)}</script>
+        <div id="root">${renderToStaticMarkup(<App {...req.query} />)}</div>`
       )
     );
   });

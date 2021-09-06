@@ -1,12 +1,13 @@
 const puppeteer = require('puppeteer');
 
-const generatePdfFromHtml = async () => {
+const generatePdfFromHtml = async (postData) => {
   const browser = await puppeteer.launch();
 
   const page = await browser.newPage();
   await page.setViewport({ width: 1754, height: 1240 });
 
-  await page.goto('http://localhost:8000', { waitUntil: 'networkidle2' })
+  const params = new URLSearchParams(postData);
+  await page.goto(`http://localhost:8000?${params.toString()}`, { waitUntil: 'networkidle2' })
 
   await page.pdf({
     path: 'hn.pdf',
@@ -18,4 +19,6 @@ const generatePdfFromHtml = async () => {
   await browser.close();
 };
 
-generatePdfFromHtml();
+generatePdfFromHtml({
+  report: 'pupeteer',
+});
