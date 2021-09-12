@@ -4,14 +4,15 @@ import reports from './pdf/affected_hosts_by_playbook';
 import Report from './pdf/Report';
 import { apiData } from './pdf/tempMockup';
 
-const App = ({ report = 'not supplied' }) => {
+const App = ({ report }) => {
   return (
     <>
-      <p>THIS IS SPARTA: {report}</p>
       <Report
         tableHeaders={reports.tableHeaders}
         data={apiData}
         schema={reports.schema}
+        name={reports.name}
+        description={reports.description}
       />
     </>
   );

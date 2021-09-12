@@ -1,10 +1,9 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import ChartBuilder, { functions } from 'react-json-chart-builder';
 
-import { Card, CardBody as PFCardBody } from '@patternfly/react-core';
+import { Card, CardBody, CardHeaderMain, CardTitle } from '@patternfly/react-core';
 import {
   TableComposable,
   TableVariant,
@@ -17,17 +16,29 @@ import {
 
 import { getText, getOthersStyle } from './helpers';
 
-const CardBody = styled(PFCardBody)`
-  & .pf-c-toolbar,
-  & .pf-c-toolbar__content {
-    padding: 0;
+const Tr = styled(PFTr)`
+  & td:first-child {
+    width: 0;
   }
 `;
 
-const Tr = styled(PFTr)`
-  & td:first-child {
-    width: 50px;
-  }
+const Title = styled(CardTitle)`
+  font-size: 1.5rem;
+  text-align: center;
+`;
+
+const Divider = styled.hr`
+  width: 15%;
+  margin: auto;
+  padding: 5px;
+  border: none;
+  border-top: 1px solid #777;
+`;
+
+const Subtitle = styled(CardTitle)`
+  text-align: center;
+  font-weight: 100;
+  padding-bottom: 0;
 `;
 
 const customFunctions = (data) => ({
@@ -38,16 +49,23 @@ const customFunctions = (data) => ({
 const Report = ({
   tableHeaders = [],
   data = { mata: {}, items: [] },
-  schema 
+  schema,
+  name,
+  description
 }) => (
-  <Card>
+  <Card isPlain>
+    <CardHeaderMain>
+      <Title>{name}</Title>
+      <Divider />
+      <Subtitle>{description}</Subtitle>
+    </CardHeaderMain>
     <CardBody>
       <ChartBuilder schema={schema} functions={customFunctions(data)} />
       <TableComposable aria-label="Report Table" variant={TableVariant.compact}>
         <Thead>
           <Tr>
             {tableHeaders.map(({ key, value }) => (
-              <Th key={key}>{value}</Th>
+              <Th modifier="wrap" key={key}>{value}</Th>
             ))}
           </Tr>
         </Thead>
@@ -64,19 +82,5 @@ const Report = ({
     </CardBody>
   </Card>
 );
-
-// Report.propTypes = {
-//   tableHeaders: PropTypes.arrayOf(
-//     PropTypes.exact({
-//       key: PropTypes.string.isRequired,
-//       value: PropTypes.string.isRequired,
-//     }).isRequired
-//   ).isRequired,
-//   data: PropTypes.shape({
-//     meta: PropTypes.array.isRequired,
-//     items: PropTypes.array.isRequired,
-//   }).isRequired,
-//   schema: PropTypes.array.isRequired,
-// };
 
 export default Report;
