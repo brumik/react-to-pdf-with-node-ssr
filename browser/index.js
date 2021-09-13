@@ -29,5 +29,8 @@ const generatePdfFromHtml = async (postData) => {
 };
 
 generatePdfFromHtml({
-  report: 'pupeteer',
+  label: 'Total unique hosts',
+  y: 'total_unique_host_count',
+  xTickFormat: 'formatDateAsDayMonth',
+  slug: 'hosts_changed_by_job_template',
 });
