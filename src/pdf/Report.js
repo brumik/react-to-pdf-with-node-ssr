@@ -27,14 +27,6 @@ const Title = styled(CardTitle)`
   text-align: center;
 `;
 
-const Divider = styled.hr`
-  width: 15%;
-  margin: auto;
-  padding: 5px;
-  border: none;
-  border-top: 1px solid #777;
-`;
-
 const Subtitle = styled(CardTitle)`
   text-align: center;
   font-weight: 100;
@@ -56,7 +48,6 @@ const Report = ({
   <Card isPlain>
     <CardHeaderMain>
       <Title>{name}</Title>
-      <Divider />
       <Subtitle>{description}</Subtitle>
     </CardHeaderMain>
     <CardBody>

@@ -35,7 +35,7 @@ const schemaFnc = (
     type: ChartTopLevelType.chart,
     parent: null,
     props: {
-      height: 350,
+      height: 250,
       padding: {
         top: 0,
         bottom: -20,
