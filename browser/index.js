@@ -7,16 +7,16 @@ const generatePdfFromHtml = async (postData) => {
   const browser = await puppeteer.launch();
 
   const page = await browser.newPage();
-  await page.setViewport({ width: A4Width*5-20, height: A4Height*5-10 });
+  await page.setViewport({ width: A4Height*5-20, height: A4Width*5-10 });
 
   const params = new URLSearchParams(postData);
   await page.goto(`http://localhost:8000?${params.toString()}`, { waitUntil: 'networkidle2' })
 
   await page.pdf({
-    path: 'DefaultPortraitSmaller.pdf',
+    path: 'LandscapeBigChartR.pdf',
     format: 'A4',
     printBackground: true,
-    landscape: false,
+    landscape: true,
     margin: {
       top: '0.5cm',
       bottom: '0.5cm',
